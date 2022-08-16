@@ -1,0 +1,30 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% block title %} {{post.title}} {% endblock %}
+
+    
+    {% block content %}
+    <hr>
+    <h3>name: {{ post.title }}</h3>
+    <img src="{{ post.image.url }}"/ alt="nophoto">
+    <hr>
+    <h5>book author: {{ post.book_author }} </h5>
+    <h5> date of book: {{ post.date_of_book }}</h5>
+    
+    <hr>
+    <small>about:</small>
+    <h4>{{ post.body }}</h4><br/>
+    
+    <small>author : {{ post.author }} - 
+        
+        {% if user.is_authenticated %}
+            {% if user.id == post.author.id %}
+
+            <a href="{% url 'update_post' post.pk %}">(Edit)</a>
+            <a href="{% url 'delete_post' post.pk %}">(Delete)</a>
+            {% endif %}
+        {% endif %}
+
+    </small></br>
+    
+    {% endblock %}

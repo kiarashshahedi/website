@@ -1,0 +1,30 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% block title %} user page {% endblock %}
+
+{% block content %}
+<h1>Posts</h1>
+<ul>   
+{% for post in object_list  %}
+    <li>
+        <a href="{% url 'postdetail' post.pk %}">
+            {{ post.title }}</a> -
+            {{ post.author }} -
+            <small>
+                {{ post.created }}
+            </small>
+        <small> 
+            {% if user.is_authenticated %}
+                {% if user.id == post.author.id %}
+
+                    <a href="{% url 'update_post' post.pk %}">(Edit)</a>
+                    <a href="{% url 'delete_post' post.pk %}">(Delete)</a>
+                {% endif %}
+            {% endif %}
+            
+        </small></br>
+    </li>
+{% endfor %}
+</ul> 
+    <h1>{{ post }}</h1>
+{% endblock %}

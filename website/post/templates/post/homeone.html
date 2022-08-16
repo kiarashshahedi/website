@@ -1,0 +1,55 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+
+{% block title %} Dashboard {% endblock title %}
+
+<!-- Specific CSS goes HERE --> 
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+    <div class="row mt-4">
+        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+        <div class="card">
+            <div class="card-body p-3">
+            <div class="row">
+                <div class="col-7">
+                <div class="numbers">
+<ul>                    
+    {% for post in object_list  %}
+        <li>
+             name : <a href="{% url 'postdetail' post.pk %}">
+                {{ post.title }}</a> 
+                <br>
+                 author :
+                {{ post.author }} 
+                <br>
+                <small>
+                    {{ post.created }}
+                </small>
+            <small> 
+                {% if user.is_authenticated %}
+                    {% if user.id == post.author.id %}
+
+                        <a href="{% url 'update_post' post.pk %}">(Edit)</a>
+                        <a href="{% url 'delete_post' post.pk %}">(Delete)</a>
+                    {% endif %}
+                {% endif %}
+                
+            </small></br>
+        </li>
+    {% endfor %}
+</ul> 
+
+                </div>
+                </div>
+                <div class="col-5 text-end my-auto">
+                <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                    <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+{% endblock content %}

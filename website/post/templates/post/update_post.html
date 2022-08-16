@@ -1,0 +1,33 @@
+{% extends 'post/base.html' %}
+
+{% block title %} update post {% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+    {% if user.id == post.author.id %}
+
+
+        
+        <h1>update post ... </h1>
+        <br/><br/>
+        <div class="form-group">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn btn-info">update</button>
+            </form>
+        </div>
+    {% else %} 
+
+        YOU ARE NOT LOGIN 
+    {% endif %}
+
+{% else %}
+
+YOU ARE NOT LOGIN 
+
+    
+
+{% endif %}
+{% endblock %}
